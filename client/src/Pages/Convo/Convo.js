@@ -1,17 +1,16 @@
-import React from 'react';
-import './Convo.css';
-import Nav from '../../components/Nav/Nav';
-import Footer from '../../components/Footer/Footer';
+import React from "react";
+import "./Convo.css";
+import Nav from "../../components/Nav/Nav";
+import Footer from "../../components/Footer/Footer";
 import io from "socket.io-client";
 import * as SIP from "sip.js";
 import { useEffect, useState } from "react";
-
+import Ship from "../../Images/start-up.png";
 //Original
 const socket = io.connect("http://localhost:8000");
 
 const Convo = () => {
-
-   //Dasha AI
+  //Dasha AI
   //TODO: Can turn into env after prod and deploy,just for convenient right now!
   const api = "http://localhost:8000";
 
@@ -41,7 +40,7 @@ const Convo = () => {
 
   const [aor, setAor] = useState();
   const [endpoint, setEndpoint] = useState();
-  const [user,setUser] = useState();
+  const [user, setUser] = useState();
 
   useEffect(() => {
     const start = async () => {
@@ -67,51 +66,66 @@ const Convo = () => {
   const run = () => {
     runCall(aor, "Peter").catch(() => {});
   };
-  const stop = async() =>{
+  const stop = async () => {
     window.location.reload();
     // await fetch(`${api}/stop`);
-  }
+  };
   useEffect(() => {
     socket.on("receive_message", (data) => {
       console.log(data);
       //Add message into chatbox
-      setDialogue((prev)=>[...prev,{speaker:data.speaker,conversation:data.conversation,id:data.id}])
+      setDialogue((prev) => [
+        ...prev,
+        { speaker: data.speaker, conversation: data.conversation, id: data.id },
+      ]);
     });
   }, [socket]);
 
-  const [scroll,setScroll] = useState(false);
-  const [dialogue,setDialogue] = useState([]);
+  const [scroll, setScroll] = useState(false);
+  const [dialogue, setDialogue] = useState([]);
 
-useEffect(() => {
-  window.onscroll = () => { setScroll(true)}
-  if(!scroll){
-    var element = document.getElementById("convoChatScroll");
-    element.scrollTop = element.scrollHeight;
-}
-}, [dialogue])
-
+  useEffect(() => {
+    window.onscroll = () => {
+      setScroll(true);
+    };
+    if (!scroll) {
+      var element = document.getElementById("convoChatScroll");
+      element.scrollTop = element.scrollHeight;
+    }
+  }, [dialogue]);
 
   return (
     <>
-      <Nav/>
-      <div className='convo-main-container'>
-        <button onClick={run}>start</button>
-        <button id="hangupButton" onClick={stop}>stop</button>
-          <div id="convoChatScroll" className='convo-chat--container'>
-          {dialogue.length>=1 && dialogue.map((d)=> {
-            return (
-              <div key={d.id} className={`convo-message--contaner ${d.speaker !== 0?'message-two':null}`}>
-              <h3>{d.speaker === 0?'Dasha':'You'}</h3>
-              <p>{d.conversation}</p>
-              {/* <span>00:50</span> */}
-            </div>
-            )
-          })}
-          </div>
+      <Nav />
+      <div className="convo-main-container">
+        <button className="utility--button convo-btn--one" onClick={run}>
+          start diagnosis
+          <img src={Ship} alt="start" />
+        </button>
+        <button className="utility--button convo-btn--two" id="hangupButton" onClick={stop}>
+          stop diagnosis
+          <img src={Ship} alt="stop" />
+        </button>
+        <div id="convoChatScroll" className="convo-chat--container">
+          {dialogue.length >= 1 &&
+            dialogue.map((d) => {
+              return (
+                <div
+                  key={d.id}
+                  className={`convo-message--contaner ${
+                    d.speaker !== 0 ? "message-two" : null
+                  }`}
+                >
+                  <h3>{d.speaker === 0 ? "Dasha" : "You"}</h3>
+                  <p>{d.conversation}</p>
+                </div>
+              );
+            })}
+        </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Convo
+export default Convo;
