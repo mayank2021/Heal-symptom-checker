@@ -1,0 +1,40 @@
+.convo{
+    /* background-color: orangered; */
+    height: 100vh;
+    display: flex;
+    box-sizing: border-box;
+}
+.convo-content{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* height: 95vh;
+    background-color: aqua; */
+}
+.chat-header{
+    background-color: red;
+    height: 3em;
+}
+.input-user{
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin: 0 0 1em;
+    /* background-color: blue; */
+    border-radius: 3em;
+}
+.input-user input{
+    width: 98%;
+    height: 2em;
+    font-size: 1em;
+    padding:0 0 0 10px;
+    border-radius: 3em;
+    border: 1px solid red;
+}
+.input-user input:focus{
+    outline:none;
+}
+.input-user button{
+    margin-left: -5em;
+}

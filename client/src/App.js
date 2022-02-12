@@ -3,6 +3,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Sawo from "./components/Sawo/Sawo";
 import Home from "./Pages/Home/Home";
+import Convo from "./Pages/Convo/Convo";
 
 function App() {
   return (
