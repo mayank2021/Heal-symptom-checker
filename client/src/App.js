@@ -68,6 +68,7 @@ function App() {
     <Routes>
     <Route path="/" element={<Sawo/>} />
     <Route path="/home" element={<Home/>} />
+    <Route path="/convo" element={<Convo/>} />
     </Routes>
       // {/* <button class="button" id="runButton" onClick={run}>
       //   Run <div class="button-bg"></div>
