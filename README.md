@@ -1,0 +1,1 @@
+# HTC-symptom-checker
