@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Sawo from "./components/Sawo/Sawo";
 import Home from "./Pages/Home/Home";
+import Result from "./Pages/Result/Result";
 import Convo from "./Pages/Convo/Convo";
 
 function App() {
@@ -68,6 +69,8 @@ function App() {
     <Routes>
     <Route path="/" element={<Sawo/>} />
     <Route path="/home" element={<Home/>} />
+    <Route path="/convo" element={<Convo/>} />
+    <Route path="/result" element={<Result/>} />
     </Routes>
       // {/* <button class="button" id="runButton" onClick={run}>
       //   Run <div class="button-bg"></div>

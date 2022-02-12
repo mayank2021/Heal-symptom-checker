@@ -1,0 +1,14 @@
+.card{
+    background-color: red;
+    width: 20em;
+    border-radius: 8px;
+    height: 8em;
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+.card p{
+    text-align: center;
+}
+.status-group{
+    display: flex;
+}

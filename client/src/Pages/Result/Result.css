@@ -1,0 +1,47 @@
+.result nav{
+    display: flex;
+
+}
+.section-first{
+    display: flex;
+    justify-content: center;
+}
+.section-first .heart-cont{
+    width: 40%;
+}
+
+.section-second{
+
+    display: flex;
+    bottom: 0;
+    gap: 2em;
+    justify-content: center;
+}
+.section-second .heart-rate{
+    background-color: red;
+    border-radius: 1em;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 60%;
+}
+.group{
+    display: flex;
+    justify-content: space-between;
+}
+.section-second .heart-rate header{
+    display: flex;
+    justify-content: space-between;
+}
+.documents{
+    background-color: red;
+    border-radius: 10px;
+    width: 30%;
+    padding: 20px;
+}
+.documents button{
+    border: none;
+    padding: 5px;
+}
+.documents ul li{
+    padding: 5px 0 ;
+}
