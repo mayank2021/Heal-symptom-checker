@@ -51,9 +51,9 @@ start node root {
     do {
         #connectSafe($endpoint);
         #waitForSpeech(1000);
+        external sendText("Hi,I am your symptom checker Dasha,what can I help you today? Could you please describe what is your illness today?",0);
         #sayText("Hi,I am your symptom checker Dasha,what can I help you today?");
         #sayText("Could you please describe what is your illness today?");
-        external sendText("Hi,I am your symptom checker Dasha,what can I help you today? Could you please describe what is your illness today?",0);
         wait *;
     }
     transitions {
@@ -68,10 +68,8 @@ node parse{
         external sendText(text,1);
         var res = external trackCondition(text);
         //Ask if user has any symptom else?
+        external sendText("Anything you wanna add up ?",0);
         #say("parse");
-        #log("parse");
-        //TODO: Need changing
-        external sendText("Anything I can add up ?",0);
         wait *;
         // exit;
     }
@@ -88,18 +86,18 @@ node parseAllCondition{
     do{
         var text = #getMessageText();
         external sendText(text,1);
-        #sayText("I can see you have the following problem");
         external sendText("I can see you have the following problem",0);
+        #sayText("I can see you have the following problem");
         #waitForSpeech(1000);
         var res = external parse();
         if(res == ""){
-            #sayText("Look like you are really healthy");
             external sendText("Look like you are really healthy",0);
+            #sayText("Look like you are really healthy");
             goto bye_then;
         }
         else{
+             external sendText(res,0);
             #sayText(res);
-            external sendText(res,0);
             goto start_diagnosis;
         }
     }
@@ -111,18 +109,18 @@ node parseAllCondition{
 
 node start_diagnosis{
     do{
+        external sendText("Let me start diagnosis the possible disease you might have!This might invlove a few questions for you to answer.",0);
         #sayText("Let me start diagnosis the possible disease you might have!");
         #sayText("This might invlove a few questions for you to answer.");
-        external sendText("Let me start diagnosis the possible disease you might have!This might invlove a few questions for you to answer.",0);
         #waitForSpeech(3000);
         set $diagnosis = external diagnosis();
         if($diagnosis.should_stop == true){
-            #sayText("I think I have a conclusion about your symptoms");
             external sendText("I think I have a conclusion about your symptoms",0);
+            #sayText("I think I have a conclusion about your symptoms");
             goto conclusion;
         }else{
-            #sayText($diagnosis.text);
             external sendText($diagnosis.text,0);
+            #sayText($diagnosis.text);
             goto answer;
         }
     }
@@ -135,8 +133,8 @@ node start_diagnosis{
 node start_answer{
     do{ 
         set $questions = external answer();
-        #sayText("Please answer Yes,No,or don't know if the following conditions suits you");
         external sendText("Please answer Yes,No,or don't know if the following conditions suits you",0);
+        #sayText("Please answer Yes,No,or don't know if the following conditions suits you");
         wait *;
     }
     transitions{
@@ -150,8 +148,8 @@ node repeat_diagnosis{
         external sendText(text,1);
         var choice = #messageGetData("answer", { value: true })[0]?.value??"";
         #log(choice);
-        #sayText("your choice is " + choice);
         external sendText("your choice is " + choice,0);
+        #sayText("your choice is " + choice);
         if(choice=="yes"){
             external answer_diagnosis("0");
         }else if(choice=="no"){
@@ -160,16 +158,16 @@ node repeat_diagnosis{
             external answer_diagnosis("2");
         }   
         //TODO: Change to parse
-        #sayText("That's great,let's go with another question!");
         external sendText("That's great,let's go with another question!",0);
+        #say("followup");
         set $diagnosis = external diagnosis();
         if($diagnosis.should_stop == true){
-            #sayText("I think I have a conclusion about your symptoms");
             external sendText("I think I have a conclusion about your symptoms",0);
+            #sayText("I think I have a conclusion about your symptoms");
             goto conclusion;
         }else{
-            #sayText($diagnosis.text);
             external sendText($diagnosis.text,0);
+            #sayText($diagnosis.text);
             goto answer;
         }
     }
@@ -181,15 +179,15 @@ node repeat_diagnosis{
 
 node conclusion{
     do{
-        #sayText("I think you might be having");
         external sendText("I think you might be having",0);
+        #sayText("I think you might be having");
         set $conclusions = external conclusion();
         for (var c in $conclusions){
-            #sayText(c.condition +" with " + c.probability + " of probability!");
             external sendText(c.condition +" with " + c.probability + " of probability!",0);
+            #sayText(c.condition +" with " + c.probability + " of probability!");
         }
-        #sayText("Is their anything I can help with you?");
         external sendText("Is their anything I can help with you?",0);
+        #sayText("Is their anything I can help with you?");
         wait *;
     }
     transitions{
@@ -203,8 +201,8 @@ node bye_then {
     do {
         var text = #getMessageText();
         external sendText(text,1);
-        #sayText("Thank you and happy trails! ");
         external sendText("Thank you and happy trails! ",0);
+        #sayText("Thank you and happy trails! ");
         exit;
     }
 }
@@ -213,8 +211,8 @@ node bye_then {
 digression bye  {
     conditions { on #messageHasIntent("bye"); }
     do {
-        #sayText("Thank you and happy trails! ");
         external sendText("Thank you and happy trails! ",0);
+        #sayText("Thank you and happy trails! ");
         exit;
     }
 }

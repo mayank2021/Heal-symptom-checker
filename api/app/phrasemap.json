@@ -16,6 +16,16 @@
           [{ "text": "Sorry to hear that, is there any symptoms you want to tell me ?" }]
         ]
       },
+      "followup":
+      {
+        "random":[
+          [{ "text": "Thank you for answering, let's go with another question!" }],
+          [{ "text": "I am sorry to hear that, how about another question?" }],
+          [{ "text": "Sorry to hear that, let me give you another question." }],
+          [{ "text": "Ok, I got it,how about this question ?" }]
+        ]
+      },
+      
 
       "greeting": 
       [
@@ -100,6 +110,7 @@
     "types": {},
     "macros": {
       "parse":{},
+      "followup":{},
       "greeting": {},
       "acknowledge": {},
       "resolve": {},
