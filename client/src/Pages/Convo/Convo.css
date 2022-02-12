@@ -1,40 +1,73 @@
-.convo{
-    /* background-color: orangered; */
-    height: 100vh;
-    display: flex;
+.convo-main-container{
+    width: 100%;
+    height: 82vh;
+    padding: 50px 300px 50px 100px;
     box-sizing: border-box;
 }
-.convo-content{
-    position: relative;
+
+.convo-chat--container{
+    height: 100%;
     width: 100%;
-    overflow: hidden;
-    /* height: 95vh;
-    background-color: aqua; */
-}
-.chat-header{
-    background-color: red;
-    height: 3em;
-}
-.input-user{
+    border: 2px solid #FF6363;
+    border-radius: 6px;
     display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #FF6363; 
+    border-radius: 5px;
+  }
+
+.convo-message--contaner{
+    background-color: rgba(255, 99, 99,0.4);
+    width: auto;
+    height: auto;
+    min-width: 500px;
+    max-width: 500px;
+    border-radius: 6px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.convo-message--contaner h3{
+ color: rgba(255,255,255,0.8);
+ font-weight: 600;
+ font-size: 1rem;
+}
+
+.convo-message--contaner p{
+    color: rgba(255,255,255,0.7);
+    text-align: justify;
+    font-size: 0.8rem;
+}
+
+.message-two{
+align-self: flex-end;
+}
+
+
+.convo-btn--one img{
+ transform: rotate(-45deg);
+ /* margin-top: -2px; */
+}
+
+.convo-btn--two img{
+    transform: rotate(135deg);
+}
+
+.convo-btn--one, .convo-btn--two{
     position: absolute;
-    bottom: 0;
-    width: 100%;
-    margin: 0 0 1em;
-    /* background-color: blue; */
-    border-radius: 3em;
+    right: 40px;
 }
-.input-user input{
-    width: 98%;
-    height: 2em;
-    font-size: 1em;
-    padding:0 0 0 10px;
-    border-radius: 3em;
-    border: 1px solid red;
-}
-.input-user input:focus{
-    outline:none;
-}
-.input-user button{
-    margin-left: -5em;
+
+
+.convo-btn--two{
+    right: 50px;
+    top:200px;
 }
