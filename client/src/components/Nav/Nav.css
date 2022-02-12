@@ -9,3 +9,14 @@
     align-items: center;
     justify-content: center;
 }
+
+.navbar img{
+    width: 30px;
+    margin: 0 10px;
+}
+
+.navbar h1{
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color:#FF6363;
+}

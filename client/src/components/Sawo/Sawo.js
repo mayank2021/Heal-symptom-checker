@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Sawo from 'sawo'
+import Sawo from 'sawo';
 
 const LoginPage = () => {
     useEffect(() => {
@@ -12,7 +12,7 @@ const LoginPage = () => {
             apiKey: '742e2c57-726a-4c16-a6ca-ef4e4101c4d5',
             // Add a callback here to handle the payload sent by sdk
             onSuccess: payload => {
-                // you can use this payload for your purpose
+                window.location = `${window.location.origin}/home`
             },
         }
         let sawo = new Sawo(config)

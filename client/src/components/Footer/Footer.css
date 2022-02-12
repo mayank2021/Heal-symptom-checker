@@ -6,4 +6,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer span{
+    margin: 0 6px;
+    color: #FF6363;
 }
