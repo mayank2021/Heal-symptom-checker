@@ -2,6 +2,7 @@ import "./App.css";
 import * as SIP from "sip.js";
 import { useEffect, useState } from "react";
 import Chat from "./Chat";
+import Sawo from "./components/Sawo/Sawo";
 import Home from "./Pages/Home/Home";
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
         Run <div class="button-bg"></div>
       </button> */}
       <Home/>
+      <Sawo/>
       {/* <Chat/> */}
     </div>
   );
