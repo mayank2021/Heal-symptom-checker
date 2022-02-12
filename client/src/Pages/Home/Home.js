@@ -1,11 +1,11 @@
-import React from 'react';
 import './Home.css';
 import Heart from '../../Images/healthcare.png';
 import Pill from '../../Images/pills.png';
 import Report from '../../Images/medical-report.png';
 import Nav from '../../components/Nav/Nav';
 import Footer from '../../components/Footer/Footer';
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
+
 
 const Home = () => {
   return (
@@ -25,7 +25,7 @@ const Home = () => {
       </div>
       <div className='home-right--container'>
       <h1>Find the cause</h1>
-      <p>Safe and anonymous health checkup. Your answers will be carefully analyzed and you’ll learn about possible causes of your symptoms.</p>
+      <p>Safe and anonymous health checkup. Your answers will be carefully analyzed and you'll learn about possible causes of your symptoms.</p>
    <Link to="/convo"><button>start now</button></Link>
 </div>
     </div>
