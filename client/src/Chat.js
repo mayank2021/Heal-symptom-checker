@@ -9,7 +9,9 @@ const Chat = () => {
         socket.on("receive_message", (data) => {
         console.log(data)
         })
-      }, [socket]);
+      }, 
+      [socket]
+      );
       
   return (
     <div>Chat</div>

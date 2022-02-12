@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Chat from "./Chat";
 import Sawo from "./components/Sawo/Sawo";
 import Home from "./Pages/Home/Home";
+import Convo from "./Pages/Convo/Convo";
 
 function App() {
   //Dasha AI
@@ -64,11 +65,12 @@ function App() {
 
   return (
     <div className="App">
-      {/* <button class="button" id="runButton" onClick={run}>
-        Run <div class="button-bg"></div>
-      </button> */}
+    {/* //   <button class="button" id="runButton" onClick={run}>
+    //     Run <div class="button-bg"></div>
+    //   </button> */}
       <Home/>
-      <Sawo/>
+      {/* <Sawo/> */}
+      {/* <Convo/> */}
       {/* <Chat/> */}
     </div>
   );
