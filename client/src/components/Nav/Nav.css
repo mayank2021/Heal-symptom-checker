@@ -1,0 +1,11 @@
+.navbar{
+    width: 100%;
+    height: 10vh;
+    color:#f7f7f7;
+    box-sizing: border-box;
+    border-bottom: 4px solid #FF6363;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

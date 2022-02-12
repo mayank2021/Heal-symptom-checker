@@ -1,0 +1,9 @@
+.footer{
+    height: 8vh;
+    box-sizing: border-box;
+    border-top: 4px solid #FF6363;
+    color:#f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

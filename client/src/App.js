@@ -1,6 +1,8 @@
 import "./App.css";
 import * as SIP from "sip.js";
 import { useEffect, useState } from "react";
+import Chat from "./Chat";
+import Home from "./Pages/Home/Home";
 
 function App() {
   //Dasha AI
@@ -61,9 +63,11 @@ function App() {
 
   return (
     <div className="App">
-      <button class="button" id="runButton" onClick={run}>
+      {/* <button class="button" id="runButton" onClick={run}>
         Run <div class="button-bg"></div>
-      </button>
+      </button> */}
+      <Home/>
+      {/* <Chat/> */}
     </div>
   );
 }

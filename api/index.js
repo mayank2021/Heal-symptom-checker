@@ -2,12 +2,43 @@ const dasha = require("@dasha.ai/sdk");
 const { v4: uuidv4 } = require("uuid");
 const express = require("express");
 const cors = require("cors");
+const http = require('http');
+const { Server } = require('socket.io');
 
 const expressApp = express();
 expressApp.use(express.json());
 expressApp.use(cors());
 
 const axios = require("axios").default;
+
+//create a server
+const server = http.createServer(expressApp);
+
+const io = new Server(server, {
+    cors:{
+        origin:'http://localhost:3000',
+        methods:['GET', 'POST']
+    }
+});
+
+io.on("connection", (socket) => {
+  console.log("User connected", socket.id);
+
+  //creat a event for room
+  // socket.on("join_room", (data) => {
+  //     socket.join(data);
+  //     console.log(`user with id:${socket.id}:join room:${data}`);
+  // });
+       const data = 'hello world';
+  // socket.on('send_message', () => {
+      socket.emit('receive_message',data);
+  // })
+
+  socket.on("disconnect", () => {
+      console.log("User disconnected", socket.id);
+  })
+})
+
 
 const main = async () => {
   const app = await dasha.deploy(`${__dirname}/app`);
@@ -27,7 +58,7 @@ const main = async () => {
       "App-Key": "1abf9f62713bd16ef8b8f544a91af3cb",
     },
   };
-
+  console.log(conversation,"conversation")
   //SetExternal is for Dasha AI to integrate with Backend
 
   //TODO: Send text through websocket to front-end
@@ -42,7 +73,7 @@ const main = async () => {
   app.setExternal("trackCondition", async (args, conv) => {
     console.log(args.condition);
     symptoms = [...symptoms, args.condition];
-    console.log(symptoms);
+    // console.log(symptoms);
   });
 
   //After adding all, request API format symptoms from Intermedical API
@@ -79,8 +110,8 @@ const main = async () => {
       config
     );
     cur_diagnosis = res.data;
-    console.log(cur_diagnosis);
-    console.log(cur_diagnosis.question.items);
+    // console.log(cur_diagnosis);
+    // console.log(cur_diagnosis.question.items);
 
     //should stop will dtect whether we should come to a conclusion
     return { text: res.data.question.text, should_stop: res.data.should_stop };
@@ -162,10 +193,10 @@ const main = async () => {
     conv.audio.noiseVolume = 0;
 
     const result = await conv.execute();
-    console.log(result.output);
+    // console.log(result.output);
   });
   
-  const server = expressApp.listen(8000, () => {
+ server.listen(8000, () => {
     console.log("Api started on port 8000.");
   });
 
