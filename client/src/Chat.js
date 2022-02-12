@@ -76,6 +76,8 @@ const Chat = () => {
 
 
   const [dialogue,setDialogue] = useState([]);
+
+  console.log(dialogue);
   return (
     <>
     <div>Chat</div>
@@ -83,7 +85,6 @@ const Chat = () => {
     <button id="hangupButton" onClick={stop}>Stop chat with Dasha</button>
     {dialogue.length>=1 && dialogue.map((d)=>(
       <div key={d.id}>
-      {/* Add UI */}
       <button>{d.speaker}</button>
       <button>{d.conversation}</button>
       </div>
