@@ -21,19 +21,20 @@ const io = new Server(server, {
     }
 });
 
+let socketId;
+let data = 'hello world';
+
 io.on("connection", (socket) => {
   console.log("User connected", socket.id);
-
+  socketId = socket.id
   //creat a event for room
   // socket.on("join_room", (data) => {
   //     socket.join(data);
   //     console.log(`user with id:${socket.id}:join room:${data}`);
   // });
-       const data = 'hello world';
   // socket.on('send_message', () => {
-      socket.emit('receive_message',data);
+  // socket.emit('receive_message',data);
   // })
-
   socket.on("disconnect", () => {
       console.log("User disconnected", socket.id);
   })
@@ -49,7 +50,10 @@ const main = async () => {
   let cur_choices = [];
   let conclusion = [];
   let conversation = "";
-  let userId;
+  let conversationId = 0;
+
+  //IO
+  let socketId = [];
 
   // Config to use the Infermedical API
   const config = {
@@ -58,15 +62,17 @@ const main = async () => {
       "App-Key": "1abf9f62713bd16ef8b8f544a91af3cb",
     },
   };
-  console.log(conversation,"conversation")
   //SetExternal is for Dasha AI to integrate with Backend
 
   //TODO: Send text through websocket to front-end
   app.setExternal("sendText", async (args, conv) => {
-    conversation = conversation + args.ct;
-    console.log(userId);
-    // send thing to front-end ;
-    // io.emit("message",conversation);
+    // speaker 0->Dasha 1->User
+    console.log(args.ct,args.speaker);
+    //io.to(room).emit('event', 'message');.
+    io.emit('receive_message',{conversation:args.ct,speaker:args.speaker,id:conversationId})
+    conversationId = conversationId + 1
+    // io.to('receive_message').emit('',{conversation:args.ct,speaker:args.speaker})
+    // send
   });
 
   //Add unprocess symptoms to symptoms
@@ -191,9 +197,11 @@ const main = async () => {
     conv.on("transcription", console.log);
     conv.audio.tts = "dasha";
     conv.audio.noiseVolume = 0;
-
     const result = await conv.execute();
     // console.log(result.output);
+  });
+  expressApp.get("/stop", async (req, res) => {
+    // const test = await conv.removeAllListeners();
   });
   
  server.listen(8000, () => {
