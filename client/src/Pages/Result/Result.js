@@ -1,54 +1,69 @@
 import React from 'react'
 import "./Result.css";
-import Diagnosis from './Diagnosis/Diagnosis';
-import Status from './Status/Status';
+import Nav from '../../components/Nav/Nav';
+import Footer from '../../components/Footer/Footer';
+import Card from './Card/Card';
+import Weight from '../../Images/scale.png';
+import Height from '../../Images/height.png';
+import Sex from '../../Images/sex.png';
+import Age from '../../Images/age.png';
 
 function Result() {
   return (
-    <div style={{color:"white"}} className="result" >
-      
-      <nav>
-        <h3 style={{height: "3em" }} > Symptom Checker </h3>
-        <i class="fa-regular fa-bell"></i>
-        <img src="" alt="" />
-      </nav>
-
-      <section className='section-first' >
-        <div className="heart-cont">
-          <Diagnosis/>
+    <>
+    <Nav/>
+    <div className='result-main--container'>
+      <h1>Summary</h1>
+     <div className='result-top--container'>
+      <div className='basic-info'>
+         <Card img={Age} title="Age" value="30"/>
+         <Card img={Sex} title="Sex" value="Male"/>
+         <Card img={Height} title="Height" value="5'10''"/>
+         <Card img={Weight} title="Weight" value="70 Kg"/>
+      </div>
+     </div>
+     <div className='result-bottom--container'>
+      <div className='result-bmi-container'>
+        <div className='bmi-element--container utility-bold'>
+          <p>BMI</p>
+          <span>Weight</span>
         </div>
-        <div className='status-cont' >
-          <Status/>
+        <div  className='bmi-element--container'>
+          <p>Below 18.5</p>
+          <span>Under weight</span>
         </div>
-      </section>
-      <br /><br />
-
-      <section className='section-second' >
-        
-        <div className="heart-rate">
-          <header > 
-            <h4>Heart Rate</h4>
-            <p className='bpm'> 75 bmp average</p>
-            
-          </header>
+        <div  className='bmi-element--container'>
+          <p>18.5 - 24.9</p>
+          <span>Normal weight</span>
         </div>
-
-        <div className='documents' >
-          <header className='group' >
-          <h3>Documents</h3>
-          <button>view all</button>
-          </header>
-          <br />
-          <ul>
-            <li className='group' > <h5>Report 1 .pdf</h5> <button > download </button>  </li>
-            <li className='group' > <h5>Report 2 .pdf</h5> <button > download </button>  </li>
-            <li className='group' > <h5>Report 3 .pdf</h5> <button > download </button>  </li>
-            <li className='group' > <h5>Report 4 .pdf</h5> <button > download </button>  </li>
-          </ul>
+        <div  className='bmi-element--container'>
+          <p>25.0 - 29.9</p>
+          <span>Over weight</span>
         </div>
-      </section>
-
+        <div  className='bmi-element--container'>
+          <p>30.0 - 34.9</p>
+          <span>Obesity class 1</span>
+        </div>
+        <div  className='bmi-element--container'>
+          <p>35.0 - 39.9</p>
+          <span>Obesity class 2</span>
+        </div>
+        <div  className='bmi-element--container'>
+          <p>Above 40</p>
+          <span>Obesity class 4</span>
+        </div>
+        <div  className='bmi-element--container utility-bold'>
+          <p>Your BMI</p>
+          <span>45</span>
+        </div>
+      </div>
+      <div className='result-chart--container'>
+           <img src="https://lh3.googleusercontent.com/g0Jw-I6-gH2DVCpnl3u8QKZVT_meR9lcJlpyeSZ-MyvwLnyEZvgyrY5frldA8HCv55s=w280-rwa" alt="alt"/>
+      </div>
+     </div>
     </div>
+    <Footer/>
+    </>
   )
 }
 

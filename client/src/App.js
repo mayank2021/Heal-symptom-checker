@@ -1,5 +1,4 @@
 import "./App.css";
-// import Chat from "./Chat";
 import { Route, Routes } from "react-router-dom";
 import Sawo from "./components/Sawo/Sawo";
 import Home from "./Pages/Home/Home";

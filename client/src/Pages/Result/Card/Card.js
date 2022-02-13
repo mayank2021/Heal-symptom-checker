@@ -1,17 +1,15 @@
 import React from 'react'
-import "./Card.css"
+import "./Card.css";
 
 
-function Card({Name, status}) {
+function Card({img,title,value}) {
   return (
-    <div className='card'>
-        <p> {Name} </p>
-        <div className="status-group">
-            <div className="img-img">
-              <img style={{width:"100%"}} src="" alt="" />
-            </div>
-            <p> {status} </p>
-        </div>
+    <div className='result-card--container'>
+    <img src={img} alt="weight"/>
+    <div>
+      <h2>{title}</h2>
+      <h2>{value}</h2>
+    </div>
     </div>
   )
 }
