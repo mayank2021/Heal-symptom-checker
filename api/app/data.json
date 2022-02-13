@@ -87,6 +87,61 @@
 
 
   "entities": {
+    "age":{
+      "open_set":true,
+      "values":[
+        {
+          "value":"25",
+          "synonyms": [
+            "twenty five","twenty fifith"
+          ]
+        },
+        {
+          "value":"35",
+          "synonyms":[
+            "thirty five","thirty fifth","thirteen five"
+          ]
+        },
+        {
+          "value":"12",
+          "synonyms":[
+            "twelve"
+          ]
+        },
+        {
+          "value":"60",
+          "synonyms":[
+            "sixty","sixteen"
+          ]
+        }
+        
+      ],
+      "includes":[
+        "I am (male)[gender]",
+        "(female)[gender]"
+      ]
+    },
+    "gender":{
+      "open_set":true,
+      "values":[
+        {
+          "value":"male",
+          "synonyms": [
+            "male","boy","he","men","man","Mr","his"
+          ]
+        },
+        {
+          "value":"female",
+          "synonyms":[
+            "female","girl","she","woman","women","Mrs","her"
+          ]
+        }
+      ],
+      "includes":[
+        "I am (male)[gender]",
+        "(female)[gender]"
+      ]
+    },
     "fruit": {
       "open_set": true,
       "values": [

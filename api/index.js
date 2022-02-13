@@ -52,6 +52,8 @@ const main = async () => {
   let conversation = "";
   let conversationId = 0;
 
+  let user_gender = "male";
+  let user_age = 30;
   //IO
   let socketId = [];
 
@@ -64,6 +66,7 @@ const main = async () => {
   };
   //SetExternal is for Dasha AI to integrate with Backend
 
+
   //TODO: Send text through websocket to front-end
   app.setExternal("sendText", async (args, conv) => {
     // speaker 0->Dasha 1->User
@@ -74,6 +77,20 @@ const main = async () => {
     // io.to('receive_message').emit('',{conversation:args.ct,speaker:args.speaker})
     // send
   });
+  
+  //Set age
+  app.setExternal("set_gender", async (args, conv) => {
+    console.log(args.gender);
+    console.log("123");
+    user_gender = args.gender;
+
+  });
+
+  app.setExternal("set_age", async (args, conv) => {
+    console.log(args.age);
+    user_age = args.age;
+  });
+
 
   //Add unprocess symptoms to symptoms
   app.setExternal("trackCondition", async (args, conv) => {
@@ -108,8 +125,8 @@ const main = async () => {
     const res = await axios.post(
       "https://api.infermedica.com/v3/diagnosis",
       {
-        sex: "male",
-        age: { value: 30 },
+        sex: user_gender,
+        age: { value: user_age },
         evidence: symptomsId,
         extras: { disable_groups: true },
       },
