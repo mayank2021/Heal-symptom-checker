@@ -136,7 +136,7 @@ node parseAllCondition{
             goto bye_then;
         }
         else{
-             external sendText(res,0);
+            external sendText(res,0);
             #sayText(res);
             goto start_diagnosis;
         }
@@ -161,20 +161,28 @@ node start_diagnosis{
         }else{
             external sendText($diagnosis.text,0);
             #sayText($diagnosis.text);
-            goto answer;
+            goto alert;
         }
     }
     transitions{
-        answer: goto start_answer;
+        alert: goto alert;
         conclusion: goto conclusion;
     }
 }
-
-node start_answer{
-    do{ 
+node alert{
+    do{
         set $questions = external answer();
         external sendText("Please answer Yes,No,or don't know if the following conditions suits you",0);
         #sayText("Please answer Yes,No,or don't know if the following conditions suits you");
+        wait *;
+    }
+    transitions{
+        repeat: goto repeat_diagnosis on #messageHasData("answer");
+    }
+}
+node start_answer{
+    do{ 
+        set $questions = external answer();
         wait *;
     }
     transitions{
@@ -219,17 +227,18 @@ node repeat_diagnosis{
 
 node conclusion{
     do{
-        external sendText("I think you might be having",0);
-        #sayText("I think you might be having");
+        external sendText("I think I know what you might be having",0);
+        #sayText("I think I know what you might be having");
         set $conclusions = external conclusion();
         for (var c in $conclusions){
-            external sendText(c.condition +" with " + c.probability + " of probability!",0);
+            // external sendText(c.condition +" with " + c.probability + " of probability!",0);
             external sendText(c.condition +"with" + c.probability,5);
-            #sayText(c.condition +" with " + c.probability + " of probability!");
+            // #sayText(c.condition +" with " + c.probability + " of probability!");
         }
-        external sendText("Is their anything I can help with you?",0);
-        #sayText("Is their anything I can help with you?");
-        wait *;
+        external sendText("Let me take you to the result page in a sec!",0);
+        #sayText("Let me take you to the result page in a sec!");
+        external sendText("end",6);
+        exit;
     }
     transitions{
         repeat: goto root on #messageHasIntent("yes");
@@ -253,8 +262,8 @@ node bye_then {
 digression bye  {
     conditions { on #messageHasIntent("bye"); }
     do {
-        external sendText("Thank you and happy trails! ",0);
-        #sayText("Thank you and happy trails! ");
+        external sendText("Let me take you to the result page in a sec!",0);
+        #sayText("Let me take you to the result page in a sec!");
         exit;
     }
 }
