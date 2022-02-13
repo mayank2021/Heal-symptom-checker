@@ -22,6 +22,7 @@
     padding: 10px;
     border: 4px solid #FF6363;
     align-items: center;
+    margin: 30px 0;
 }
 
 .result-bmi-container{
@@ -55,6 +56,15 @@
 .result-bottom--container{
     display: flex;
     justify-content: center;
+    color:white;
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin: 80px 0;
+    letter-spacing: 1px;
+}
+
+.result-bottom--container span{
+    color:#FF6363
 }
 
 
