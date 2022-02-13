@@ -44,6 +44,12 @@ external function answer_diagnosis(choice:string): string;
 // conclusion about the possible disease
 external function conclusion():conclusion[];
 
+// set gender 
+external function set_gender(gender:string): string;
+
+// set age
+external function set_age(age:string): string;
+
 
 //TODO: 
 // - How to deal with random word ?
@@ -51,16 +57,50 @@ start node root {
     do {
         #connectSafe($endpoint);
         #waitForSpeech(1000);
-        external sendText("Hi,I am your symptom checker Dasha,what can I help you today? Could you please describe what is your illness today?",0);
+        external sendText("Hi,I am your symptom checker Dasha,what can I help you today? Could you please tell me your gender first?",0);
         #sayText("Hi,I am your symptom checker Dasha,what can I help you today?");
-        #sayText("Could you please describe what is your illness today?");
+        #sayText("Could you please tell me your gender first?");
+        // #sayText("Could you please describe what is your illness today?");
         wait *;
     }
     transitions {
-        parse: goto parse on true;
+        gender: goto gender on #messageHasData("gender");
         // parse: goto parse on true;
     }
 }
+node gender{
+    do{
+        var text = #getMessageText();
+        external sendText(text,1);
+        var gender = #messageGetData("gender", { value: true })[0]?.value??"";
+        external set_gender(gender);
+        external sendText(gender,3);
+        external sendText("Great,can you let me know your age next ? This will make our diagnosis more precise!",0);
+        #sayText("Great,can you let me know your age next ?");
+        #sayText("This will make our diagnosis more precise!");
+        wait *;
+    }
+    transitions{
+        symptoms: goto symptoms on #messageHasData("age");
+    }
+}
+node symptoms{
+    do{
+       var text = #getMessageText();
+       external sendText(text,1);
+       var age = #messageGetData("age", { value: true })[0]?.value??"";
+       external sendText(age,4); //4 stand for age
+       external set_age(age);
+       external sendText("Nice,now I know you more! Could you let me know about what you feel today?",0);
+       #sayText("Nice,now I know you more!");
+       #sayText("Could you let me know about what you feel today?");
+       wait *;
+    }transitions{
+        parse: goto parse on true;
+    }
+}
+
+
 
 node parse{
     do{
@@ -184,6 +224,7 @@ node conclusion{
         set $conclusions = external conclusion();
         for (var c in $conclusions){
             external sendText(c.condition +" with " + c.probability + " of probability!",0);
+            external sendText(c.condition +"with" + c.probability,5);
             #sayText(c.condition +" with " + c.probability + " of probability!");
         }
         external sendText("Is their anything I can help with you?",0);
@@ -202,6 +243,7 @@ node bye_then {
         var text = #getMessageText();
         external sendText(text,1);
         external sendText("Thank you and happy trails! ",0);
+        external sendText("end",6);
         #sayText("Thank you and happy trails! ");
         exit;
     }
